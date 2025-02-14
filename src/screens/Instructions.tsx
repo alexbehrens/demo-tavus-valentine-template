@@ -7,15 +7,14 @@ import {
 import { screenAtom } from "@/store/screens";
 import { conversationAtom } from "@/store/conversation";
 import React, { useCallback, useMemo, useState } from "react";
-import { useAtom, useAtomValue } from "jotai";
-import { AlertTriangle, Mic, Video } from "lucide-react";
+import { useAtom } from "jotai";
+import { AlertTriangle, Mic, Video, Heart } from "lucide-react";
 import { useDaily, useDailyEvent, useDevices } from "@daily-co/daily-react";
 import { ConversationError } from "./ConversationError";
 import zoomSound from "@/assets/sounds/zoom.mp3";
-import { Button } from "@/components/ui/button";
-import { apiTokenAtom } from "@/store/tokens";
 import { quantum } from 'ldrs';
 import santaVideo from "@/assets/video/gloria.mp4";
+import { userPreferencesAtom } from "@/store/userPreferences";
 
 // Register the quantum loader
 quantum.register();
@@ -25,17 +24,15 @@ const useCreateConversationMutation = () => {
   const [error, setError] = useState<string | null>(null);
   const [, setScreenState] = useAtom(screenAtom);
   const [, setConversation] = useAtom(conversationAtom);
-  const token = useAtomValue(apiTokenAtom);
-
+  
   const createConversationRequest = async () => {
     try {
-      if (!token) {
-        throw new Error("Token is required");
-      }
-      const conversation = await createConversation(token);
+      setIsLoading(true);
+      const conversation = await createConversation();
       setConversation(conversation);
       setScreenState({ currentScreen: "conversation" });
     } catch (error) {
+      console.error('Conversation creation error:', error);
       setError(error as string);
     } finally {
       setIsLoading(false);
@@ -57,6 +54,7 @@ export const Instructions: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingConversation, setIsLoadingConversation] = useState(false);
   const [error, setError] = useState(false);
+  const [preferences] = useAtom(userPreferencesAtom);
   const audio = useMemo(() => {
     const audioObj = new Audio(zoomSound);
     audioObj.volume = 0.7;
@@ -132,15 +130,18 @@ export const Instructions: React.FC = () => {
           playsInline
           className="fixed inset-0 h-full w-full object-cover"
         />
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+        <div className="fixed inset-0 bg-gradient-to-b from-red-500/20 to-red-600/20 backdrop-blur-sm" />
         
         <AnimatedTextBlockWrapper>
           <div className="flex flex-col items-center justify-center gap-4">
-            <l-quantum
-              size="45"
-              speed="1.75"
-              color="white"
-            ></l-quantum>
+            <div className="w-24 h-24 sm:w-32 sm:h-32">
+              <img 
+                src="/images/heart.gif" 
+                alt="Beating Heart"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <p className="text-white/70">Starting your love coaching session...</p>
           </div>
         </AnimatedTextBlockWrapper>
       </DialogWrapper>
@@ -161,19 +162,16 @@ export const Instructions: React.FC = () => {
         playsInline
         className="fixed inset-0 h-full w-full object-cover"
       />
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="fixed inset-0 bg-gradient-to-b from-red-500/20 to-red-600/20 backdrop-blur-sm" />
       
       <AnimatedTextBlockWrapper>
         <div className="flex justify-center items-center gap-8 mb-2">
           <div className="w-24 h-24 sm:w-32 sm:h-32">
-            <iframe 
-              src="https://giphy.com/embed/jOgyNBSHNqCuIv7gMa" 
-              width="100%" 
-              height="100%" 
-              frameBorder="0" 
-              className="giphy-embed" 
-              allowFullScreen
-            ></iframe>
+            <img 
+              src="/images/heart.gif" 
+              alt="Beating Heart"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
 
@@ -183,60 +181,62 @@ export const Instructions: React.FC = () => {
             fontFamily: 'Source Code Pro, monospace'
           }}
         >
-          <span className="text-white">See AI?</span>{" "}
-          <span style={{
-            color: '#9EEAFF'
-          }}>Act Natural.</span>
+          <span className="text-white">Need Love Advice</span>{" "}
+          {preferences.name ? (
+            <span style={{ color: '#FF0000' }}>{preferences.name}?</span>
+          ) : (
+            <span style={{ color: '#FF0000' }}>?</span>
+          )}
         </h1>
 
-        <p className="max-w-[650px] text-center text-base sm:text-lg text-gray-400 mb-12">
-          Have a face-to-face conversation with an AI so real, it feels human—an intelligent agent ready to listen, respond, and act across countless use cases.
+        <p className="max-w-[650px] text-center text-base sm:text-lg text-white/90 mb-12">
+          Have a heart-to-heart conversation with an AI relationship coach who understands love's complexities. Get personalized advice, insights, and guidance for your romantic journey.
         </p>
 
-        <Button
+        <button
           onClick={handleClick}
-          className="relative z-20 flex items-center justify-center gap-2 rounded-3xl border border-[rgba(255,255,255,0.3)] px-8 py-2 text-sm text-white transition-all duration-200 hover:text-primary mb-12 disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 rounded-3xl border border-[#FF0000]/50 px-8 py-3 text-sm text-white transition-all duration-200 hover:bg-white hover:text-[#FF0000] disabled:opacity-50 disabled:cursor-not-allowed bg-black/20 mb-12"
           disabled={isLoading}
           style={{
-            height: '48px',
             transition: 'all 0.2s ease-in-out',
-            backgroundColor: 'rgba(0,0,0,0.3)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 254, 0.5)';
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.boxShadow = '0 4px 24px #FF0000';
+            }
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          <Video className="size-5" />
-          Start Video Chat
+          <Heart className="size-4" />
+          Start Love Coaching
           {getUserMediaError && (
-            <div className="absolute -top-1 left-0 right-0 flex items-center gap-1 text-wrap rounded-lg border bg-red-500 p-2 text-white backdrop-blur-sm">
-              <AlertTriangle className="text-red size-4" />
+            <div className="absolute -top-1 left-0 right-0 flex items-center gap-1 text-wrap rounded-lg border border-[#FF0000] bg-[#FF0000] p-2 text-white backdrop-blur-sm">
+              <AlertTriangle className="text-white size-4" />
               <p>
-                To chat with the AI, please allow microphone access. Check your
+                To chat with your love coach, please allow microphone access. Check your
                 browser settings.
               </p>
             </div>
           )}
-        </Button>
+        </button>
 
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:gap-8 text-gray-400 justify-center">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:gap-8 text-white/90 justify-center">
           <div className="flex items-center gap-3 bg-[rgba(0,0,0,0.2)] px-4 py-2 rounded-full">
-            <Mic className="size-5 text-primary" />
-            Mic access is required
+            <Mic className="size-5" style={{ color: '#FF0000' }} />
+            Voice chat enabled
           </div>
           <div className="flex items-center gap-3 bg-[rgba(0,0,0,0.2)] px-4 py-2 rounded-full">
-            <Video className="size-5 text-primary" />
-            Camera access is required
+            <Video className="size-5" style={{ color: '#FF0000' }} />
+            Face-to-face coaching
           </div>
         </div>
 
-        <span className="absolute bottom-6 px-4 text-sm text-gray-500 sm:bottom-8 sm:px-8 text-center">
+        <span className="absolute bottom-6 px-4 text-sm text-white/70 sm:bottom-8 sm:px-8 text-center">
           By starting a conversation, I accept the{' '}
-          <a href="#" className="text-primary hover:underline">Terms of Use</a> and acknowledge the{' '}
-          <a href="#" className="text-primary hover:underline">Privacy Policy</a>.
+          <a href="#" style={{ color: '#FF0000' }} className="hover:underline">Terms of Use</a> and acknowledge the{' '}
+          <a href="#" style={{ color: '#FF0000' }} className="hover:underline">Privacy Policy</a>.
         </span>
       </AnimatedTextBlockWrapper>
     </DialogWrapper>

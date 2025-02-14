@@ -1,30 +1,22 @@
 import { IConversation } from "@/types";
-import { settingsAtom } from "@/store/settings";
-import { getDefaultStore } from "jotai";
 
-export const createConversation = async (
-  token: string,
-): Promise<IConversation> => {
-  // Get settings from Jotai store
-  const settings = getDefaultStore().get(settingsAtom);
+export const createConversation = async (): Promise<IConversation> => {
+  // Get token from localStorage instead of env
+  const token = localStorage.getItem('tavus-token') || '';
   
-  // Add debug logs
-  console.log('Creating conversation with settings:', settings);
-  console.log('Greeting value:', settings.greeting);
-  console.log('Context value:', settings.context);
+  // Add this debug log
+  console.log('API Key available:', !!token);
+  
+  // Get settings directly from localStorage
+  const savedSettings = localStorage.getItem('tavus-settings');
+  const settings = savedSettings ? JSON.parse(savedSettings) : {};
   
   // Build the context string
-  let contextString = "";
-  if (settings.name) {
-    contextString = `You are talking with the user, ${settings.name}. Additional context: `;
-  }
-  contextString += settings.context || "";
+  let contextString = settings.conversational_context || "";
   
   const payload = {
-    persona_id: settings.persona || "pd43ffef",
-    custom_greeting: settings.greeting !== undefined && settings.greeting !== null 
-      ? settings.greeting 
-      : "Hey there! I'm your technical co-pilot! Let's get get started building with Tavus.",
+    persona_id: settings.persona_id || "pa97785bb355", // Use persona_id from settings
+    custom_greeting: settings.greeting || "Hi there! I'm your AI relationship coach. I'm here to help you navigate the complexities of love and relationships.",
     conversational_context: contextString
   };
   
@@ -34,7 +26,7 @@ export const createConversation = async (
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": token ?? "",
+      "x-api-key": token || "", // Use token from localStorage
     },
     body: JSON.stringify(payload),
   });

@@ -1,0 +1,26 @@
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translateY(30vh) rotate(120deg) scale(0.8);
+  }
+  66% {
+    transform: translateY(60vh) rotate(240deg) scale(1.2);
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) scale(1);
+  }
+}
+
+.hearts-container {
+  perspective: 50px;
+  transform-style: preserve-3d;
+}
+
+.heart {
+  font-size: 1.5rem;
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+} 

@@ -70,19 +70,8 @@ const BackgroundAudio: React.FC = () => {
   }, [audio, isMuted]);
 
   useEffect(() => {
-    if (
-      screen.currentScreen === "conversation" &&
-      audio.volume !== 0 &&
-      !isMuted
-    ) {
+    if (screen.currentScreen === "conversation" && audio.volume !== 0 && !isMuted) {
       fadeIn(audio.volume, 0);
-    }
-    if (
-      (screen.currentScreen === "niceForm" ||
-        screen.currentScreen === "naughtyForm") &&
-      !isMuted
-    ) {
-      fadeIn(audio.volume, 0.3);
     }
   }, [audio, screen]);
 

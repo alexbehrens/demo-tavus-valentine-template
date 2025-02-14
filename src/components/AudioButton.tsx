@@ -1,17 +1,16 @@
-import React, { useCallback, useMemo } from "react";
+import { ButtonHTMLAttributes, forwardRef } from "react";
+import { cn } from "@/utils";
 import buttonBell from "@/assets/sounds/beep.mp3";
-import { Button } from "@/components/ui/button";
-import { ButtonProps } from "@/components/ui/button";
+import { useCallback, useMemo } from "react";
 
-interface AudioButtonProps extends ButtonProps {
+interface AudioButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
 }
 
-const AudioButton: React.FC<AudioButtonProps> = ({
-  onClick,
-  children,
-  ...props
-}) => {
+const AudioButton = forwardRef<
+  HTMLButtonElement,
+  AudioButtonProps
+>(({ className, children, ...props }, ref) => {
   const audio = useMemo(() => {
     const audioObj = new Audio(buttonBell);
     audioObj.volume = 0.7;
@@ -25,16 +24,26 @@ const AudioButton: React.FC<AudioButtonProps> = ({
         console.warn("Audio playback failed:", error);
       });
 
-      onClick?.(event);
+      props.onClick?.(event);
     },
-    [audio, onClick],
+    [audio, props.onClick],
   );
 
   return (
-    <Button onClick={handleClick} {...props}>
+    <button
+      ref={ref}
+      className={cn(
+        "relative z-20 flex items-center justify-center gap-2 rounded-3xl border border-red-500/30 px-4 py-2 text-sm text-red-300 transition-all duration-200 mt-4 disabled:opacity-50 bg-white/10 hover:bg-white hover:text-red-500",
+        className
+      )}
+      onClick={handleClick}
+      {...props}
+    >
       {children}
-    </Button>
+    </button>
   );
-};
+});
+
+AudioButton.displayName = "AudioButton";
 
 export default AudioButton;

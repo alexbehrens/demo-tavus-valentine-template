@@ -14,7 +14,7 @@ export default function Video({
 
   return (
     <div
-      className={cn("bg-[rgba(248,250,252,0.08)]", className, {
+      className={cn("bg-red-950/10 rounded-lg", className, {
         "hidden size-0": videoState.isOff,
       })}
     >
@@ -22,7 +22,7 @@ export default function Video({
         automirror
         sessionId={id}
         type="video"
-        className={cn("size-full object-cover", tileClassName, {
+        className={cn("size-full object-cover rounded-lg", tileClassName, {
           hidden: videoState.isOff,
         })}
       />

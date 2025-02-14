@@ -1,36 +1,30 @@
 import { cn } from "@/utils";
 import { motion } from "framer-motion";
-import { quantum } from 'ldrs';
+import { cardio } from 'ldrs';
 
-quantum.register();
-
-const desktopClassName = "lg:aspect-video lg:max-h-none lg:h-auto";
-const tabletClassName = "sm:max-h-[680px]"; // sm
-const mobileClassName = "w-full h-full max-h-[500px] max-w-5xl";
+cardio.register();
 
 export const DialogWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2.5xl border-2 border-primary bg-wrapper shadow-wrapper-shadow backdrop-blur-sm",
-        desktopClassName,
-        tabletClassName,
-        mobileClassName,
+        "relative overflow-y-auto overflow-x-hidden rounded-2.5xl border-2 border-red-500/60 bg-gradient-to-b from-red-950/80 to-red-900/80 shadow-[0_8px_48px_rgba(255,0,0,0.8)] backdrop-blur-sm w-full h-full min-h-[500px]",
       )}
     >
       <img
         src="/images/dialogBlur.svg"
-        alt="santa"
-        className="absolute inset-0 h-full w-full object-cover"
+        alt="background"
+        className="absolute inset-0 h-full w-full object-cover opacity-30"
       />
       {children || (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-          <l-quantum
-            size="45"
-            speed="1.75"
-            color="white"
-          ></l-quantum>
-          <p className="text-white text-lg">Loading...</p>
+          <l-cardio
+            size="50"
+            stroke="4"
+            speed="2"
+            color="#FF0000"
+          ></l-cardio>
+          <p className="text-red-200 text-lg">Loading...</p>
         </div>
       )}
     </div>
@@ -55,16 +49,13 @@ export const AnimatedWrapper = ({
         },
       }}
       className={cn(
-        "relative overflow-hidden rounded-2.5xl border-2 border-primary bg-wrapper shadow-wrapper-shadow backdrop-blur-sm",
-        desktopClassName,
-        tabletClassName,
-        mobileClassName,
+        "relative overflow-y-auto overflow-x-hidden rounded-2.5xl border-2 border-red-500/60 bg-gradient-to-b from-red-950/80 to-red-900/80 shadow-[0_8px_48px_rgba(255,0,0,0.8)] backdrop-blur-sm w-full h-full min-h-[500px]",
       )}
     >
       <img
         src="/images/dialogBlur.svg"
-        alt="santa"
-        className="absolute inset-0 h-full w-full object-cover"
+        alt="background"
+        className="absolute inset-0 h-full w-full object-cover opacity-30"
       />
       {children}
     </motion.div>
@@ -100,7 +91,7 @@ export const AnimatedTextBlockWrapper = ({
           ease: [0.34, 1.56, 0.64, 1],
         },
       }}
-      className="relative flex size-full flex-col items-center justify-center px-2.5 py-6 sm:p-8"
+      className="relative flex min-h-full w-full flex-col items-center justify-center px-4 py-8 sm:px-8"
     >
       {children}
     </motion.div>
@@ -126,12 +117,12 @@ export const StaticTextBlockWrapper = ({
     <div className="flex flex-col items-center justify-center">
       <img
         src={imgSrc}
-        alt="gift"
+        alt="icon"
         className="mb-4 size-20 sm:mb-8 lg:size-30"
       />
       <h2
         className={cn(
-          "mb-4 bg-text-primary bg-clip-text pt-1 text-center font-santa text-4.5xl text-transparent sm:max-w-[650px] sm:text-6.5xl lg:text-7xl",
+          "mb-4 bg-gradient-to-r from-red-300 to-red-500 bg-clip-text pt-1 text-center font-santa text-4.5xl text-transparent sm:max-w-[650px] sm:text-6.5xl lg:text-7xl",
           titleClassName,
         )}
       >
@@ -139,7 +130,7 @@ export const StaticTextBlockWrapper = ({
       </h2>
       <p
         className={cn(
-          "max-w-[650px] text-center text-base sm:text-lg",
+          "max-w-[650px] text-center text-base text-red-100 sm:text-lg",
           descriptionClassName,
         )}
       >
