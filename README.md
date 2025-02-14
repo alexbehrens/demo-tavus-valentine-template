@@ -20,10 +20,6 @@ The Love Coach Demo stack includes:
 - Tailwind CSS
 - Framer Motion
 <br></br>
-## 🎮 Try it Live
-Thanks to StackBlitz, you can spin up and deploy a demo fork in under a minute!
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Tavus-Engineering/tavus-examples/tree/main/showcase/love-coach-demo?file=src%2FApp.tsx)
 
 <br></br>
 ## ❤️ Prerequisites
