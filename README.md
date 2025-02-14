@@ -4,7 +4,7 @@
 
 ## ❤️ Introduction
 
-Welcome to the Love Coach AI Demo, a showcase of Tavus's Conversational Video Interface (CVI) technology! 
+Welcome to the Love Coach AI Demo, a showcase of Tavus's Conversational Video Interface (CVI) technology! Try out a hosted version [here](https://demo-tavus-val.vercel.app/). (no API key required!)
 This demo demonstrates how you can create empathetic, AI-powered relationship coaches using hyperrealistic, interactive video personas.
 
 With this demo, you can:
@@ -12,16 +12,13 @@ With this demo, you can:
 - Fork and customize the experience
 - Use a new **Persona ID** or **Replica ID** to create your own AI coach or mentor
 
-<br></br>
 The Love Coach Demo stack includes:
 - React
 - TypeScript
 - Vite
 - Tailwind CSS
 - Framer Motion
-<br></br>
 
-<br></br>
 ## ❤️ Prerequisites
 
 1. Create an account on [Tavus Platform](https://platform.tavus.io/api-keys).
