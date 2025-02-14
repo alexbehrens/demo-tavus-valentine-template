@@ -38,16 +38,16 @@ The Love Coach Demo stack includes:
 
 3. **Clone and Customize:**  
    Fork this repository and modify it to create your own unique AI coach persona. To personalize your experience:
-   - Edit the **persona_id** in the `createConversation.ts` file to match your new persona. You can learn how to [create your own persona](https://docs.tavus.io/sections/conversational-video-interface/creating-a-persona) or persona replicas directly on the [Tavus Platform](https://platform.tavus.io/).
+   - Edit the **persona_id** in the `UserInfo.ts` file to match your new persona. You can learn how to [create your own persona](https://docs.tavus.io/sections/conversational-video-interface/creating-a-persona) or persona replicas directly on the [Tavus Platform](https://platform.tavus.io/).
    - You can also create different types of coaches or mentors by swapping in your own personas.
 
-   For example, to update the persona ID, locate the following snippet in `createConversation.ts`:
+   For example, to update the persona ID, locate the following snippet in `UserInfo.ts`:
 
    ```typescript
-   body: JSON.stringify({
-     // Replace with your own Persona ID
-     persona_id: "your_persona_id_here",
-   }),
+   const PERSONA_IDS = {
+     male: "pcd8c14acf46", // Male coach persona
+     female: "pb241984797f"  // Female coach persona
+   } as const;
    ```
 
 <br></br>
