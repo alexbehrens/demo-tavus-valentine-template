@@ -1,19 +1,19 @@
-# Tavus Santa Demo
+# Love Coach AI Demo
 
-## 🎅 Introduction
+> **⚠️ Important:** This demo requires your own Tavus personas to work. The default persona IDs are placeholders - you'll need to create your own personas on the Tavus Platform and update the IDs in the code. See the Prerequisites and Getting Started sections below for detailed steps.
 
-Welcome to the Tavus Santa Demo, a festive showcase of Tavus's groundbreaking Conversational Video Interface (CVI), now with a holiday twist! 
-Check it out to see how you can leverage our technology to create hyperrealistic, interactive personas like Santa Claus.
+## ❤️ Introduction
 
-![AI Santa Demo](./public/images/demo.gif)
+Welcome to the Love Coach AI Demo, a showcase of Tavus's Conversational Video Interface (CVI) technology! 
+This demo demonstrates how you can create empathetic, AI-powered relationship coaches using hyperrealistic, interactive video personas.
 
 With this demo, you can:
-- Explore real-time video interactions powered by Tavus CVI APIs
+- Experience real-time video interactions powered by Tavus CVI APIs
 - Fork and customize the experience
-- Use a new **Persona ID** or **Replica ID** to bring your custom vision to life, whether it’s a Santa variant or an entirely new character!
+- Use a new **Persona ID** or **Replica ID** to create your own AI coach or mentor
 
 <br></br>
-The Santa Demo stack includes:
+The Love Coach Demo stack includes:
 - React
 - TypeScript
 - Vite
@@ -21,19 +21,18 @@ The Santa Demo stack includes:
 - Framer Motion
 <br></br>
 ## 🎮 Try it Live
-Thanks to StackBlitz, you can spin up and delpoy a Santa demo fork in under a minute!
+Thanks to StackBlitz, you can spin up and deploy a demo fork in under a minute!
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Tavus-Engineering/tavus-examples/tree/main/showcase/santa-demo?file=src%2FApp.tsx)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Tavus-Engineering/tavus-examples/tree/main/showcase/love-coach-demo?file=src%2FApp.tsx)
 
 <br></br>
-## 🎄 Prerequisites
+## ❤️ Prerequisites
 
 1. Create an account on [Tavus Platform](https://platform.tavus.io/api-keys).
 2. Generate an API token in your account settings.
 
-
 <br></br>
-## 🍴Forking the Demo
+## 🔧 Getting Started
 1. **Install dependencies:**
    ```bash
    npm install
@@ -45,9 +44,9 @@ Thanks to StackBlitz, you can spin up and delpoy a Santa demo fork in under a mi
    ```
 
 3. **Clone and Customize:**  
-   Fork this repository and modify it to create your own unique Santa AI persona. To personalize your experience:
+   Fork this repository and modify it to create your own unique AI coach persona. To personalize your experience:
    - Edit the **persona_id** in the `createConversation.ts` file to match your new persona. You can learn how to [create your own persona](https://docs.tavus.io/sections/conversational-video-interface/creating-a-persona) or persona replicas directly on the [Tavus Platform](https://platform.tavus.io/).
-   - You can also swap Santa out with a completely different replica/persona to use this a simple react template for your next CVI project.
+   - You can also create different types of coaches or mentors by swapping in your own personas.
 
    For example, to update the persona ID, locate the following snippet in `createConversation.ts`:
 
@@ -57,7 +56,6 @@ Thanks to StackBlitz, you can spin up and delpoy a Santa demo fork in under a mi
      persona_id: "your_persona_id_here",
    }),
    ```
-
 
 <br></br>
 ## 📚 Learn More About Tavus
